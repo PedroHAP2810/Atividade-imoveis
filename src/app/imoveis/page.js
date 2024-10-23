@@ -5,6 +5,7 @@ import { Formik } from 'formik'
 import React from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { FaTrash, FaCheck } from "react-icons/fa";
+import * as Yup from "yup"
 
 export default function page() {
 
@@ -38,16 +39,44 @@ export default function page() {
           email: ""
   }
 }
+
+const validationSchema = Yup.object().shape({
+        tipo: Yup.string().required("Campo é obrigatório"),
+        finalidade: Yup.string().required("Campo é obrigatório"),
+        valor: Yup.string().required("Campo é obrigatório"),
+        area: Yup.string().required("Campo é obrigatório"),
+        quartos: Yup.string().required("Campo é obrigatório"),
+        banheiros: Yup.string().required("Campo é obrigatório"),
+        descricao: Yup.string().required("Campo é obrigatório"),
+        foto: Yup.string(),
+        vagasGaragem: Yup.string().required("Campo é obrigatório"),
+        endereco: Yup.object().shape( {
+          cep: Yup.string().required("Campo é obrigatório"),
+          logradouro: Yup.string().required("Campo é obrigatório"),
+          numero: Yup.string().required("Campo é obrigatório"),
+          complemento: Yup.string().required("Campo é obrigatório"),
+          bairro: Yup.string().required("Campo é obrigatório"),
+          cidade: Yup.string().required("Campo é obrigatório"),
+          UF: Yup.string().required("Campo é obrigatório"),
+          }),
+        proprietario: Yup.object().shape( {
+          nome: Yup.string().required("Campo é obrigatório"),
+          CPF: Yup.string().required("Campo é obrigatório"),
+          telefone: Yup.string().required("Campo é obrigatório"),
+          email: Yup.string().required("Campo é obrigatório")
+  } )
+})
   
   
     return (
     <Pagina titulo='Imóveis'> 
     <Formik 
     initialValues={initialValues}
+    validationSchema={validationSchema}
     onSubmit={cadastrar}
     >
-        {({ values, handleSubmit, handleReset, handleChange}) => (
-            <Form >
+        {({ values, errors, touched, handleBlur, handleSubmit, handleReset, handleChange}) => (
+            <Form onSubmit={handleSubmit}>
 
                 <Row className='mb-2'>
                     <Form.Group as={Col}>
@@ -57,8 +86,11 @@ export default function page() {
                         type='text'
                         value={values.tipo}
                         onChange={handleChange}
-
+                        onBlur={handleBlur}
+                        isValid={touched.tipo && !errors.tipo}
+                        isInvalid={touched.tipo && !!errors.tipo}
                         ></Form.Control>
+                        <Form.Control.Feedback type='invalid'>{errors.tipo}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group as={Col}>
@@ -67,8 +99,12 @@ export default function page() {
                         name='finalidade'
                         type='text'
                         value={values.finalidade}
-                        onChange={handleChange} 
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        isValid={touched.finalidade && !errors.finalidade}
+                        isInvalid={touched.finalidade && !!errors.finalidade} 
                         />
+                        <Form.Control.Feedback type='invalid'>{errors.finalidade}</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
 
@@ -80,8 +116,11 @@ export default function page() {
                         type='text'
                         value={values.valor}
                         onChange={handleChange}
-
+                        onBlur={handleBlur}
+                        isValid={touched.valor && !errors.valor}
+                        isInvalid={touched.valor && !!errors.valor} 
                         ></Form.Control>
+                        <Form.Control.Feedback type='invalid'>{errors.valor}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group as={Col}>
@@ -90,8 +129,12 @@ export default function page() {
                         name='area'
                         type='text'
                         value={values.area}
-                        onChange={handleChange} 
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        isValid={touched.area && !errors.area}
+                        isInvalid={touched.area && !!errors.area} 
                         />
+                        <Form.Control.Feedback type='invalid'>{errors.area}</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
 
@@ -103,8 +146,11 @@ export default function page() {
                         type='text'
                         value={values.quartos}
                         onChange={handleChange}
-
+                        onBlur={handleBlur}
+                        isValid={touched.quartos && !errors.quartos}
+                        isInvalid={touched.quartos && !!errors.quartos}
                         ></Form.Control>
+                         <Form.Control.Feedback type='invalid'>{errors.quartos}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group as={Col}>
@@ -114,7 +160,11 @@ export default function page() {
                         type='text'
                         value={values.banheiros}
                         onChange={handleChange} 
+                        onBlur={handleBlur}
+                        isValid={touched.banheiros && !errors.banheiros}
+                        isInvalid={touched.banheiros && !!errors.banheiros}
                         />
+                         <Form.Control.Feedback type='invalid'>{errors.banheiros}</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
 
@@ -126,8 +176,11 @@ export default function page() {
                         type='text'
                         value={values.descricao}
                         onChange={handleChange}
-
+                        onBlur={handleBlur}
+                        isValid={touched.descricao && !errors.descricao}
+                        isInvalid={touched.descricao && !!errors.descricao}
                         ></Form.Control>
+                        <Form.Control.Feedback type='invalid'>{errors.descricao}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group as={Col}>
@@ -136,8 +189,12 @@ export default function page() {
                         name='foto'
                         type='text'
                         value={values.foto}
-                        onChange={handleChange} 
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        isValid={touched.foto && !errors.foto}
+                        isInvalid={touched.foto && !!errors.foto} 
                         />
+                        <Form.Control.Feedback type='invalid'>{errors.foto}</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
 
@@ -149,8 +206,11 @@ export default function page() {
                         type='text'
                         value={values.vagasGaragem}
                         onChange={handleChange}
-
+                        onBlur={handleBlur}
+                        isValid={touched.vagasGaragem && !errors.vagasGaragem}
+                        isInvalid={touched.vagasGaragem && !!errors.vagasGaragem}
                         ></Form.Control>
+                         <Form.Control.Feedback type='invalid'>{errors.vagasGaragem}</Form.Control.Feedback>
                     </Form.Group>
 
                 </Row>
@@ -168,7 +228,11 @@ export default function page() {
                   type='text'
                   value={values?.endereco?.cep}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.endereco?.cep && !errors?.endereco?.cep}
+                  isInvalid={touched?.endereco?.cep && !!errors?.endereco?.cep}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.endereco?.cep}</Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group as={Col}>
@@ -178,7 +242,11 @@ export default function page() {
                   type='text'
                   value={values?.endereco?.logradouro}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.endereco?.logradouro && !errors?.endereco?.logradouro}
+                  isInvalid={touched?.endereco?.logradouro && !!errors?.endereco?.logradouro}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.endereco?.logradouro}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
@@ -190,8 +258,11 @@ export default function page() {
                   type='text'
                   value={values?.endereco?.numero}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.endereco?.numero && !errors?.endereco?.numero}
+                  isInvalid={touched?.endereco?.numero && !!errors?.endereco?.numero}
                 />
-                <Form.Control></Form.Control>
+                <Form.Control.Feedback type='invalid'>{errors?.endereco?.numero}</Form.Control.Feedback>
               </Form.Group>
 
              <Form.Group>
@@ -201,7 +272,11 @@ export default function page() {
                   type='text'
                   value={values?.endereco?.complemento}
                   onChange={handleChange}
-                 /> 
+                  onBlur={handleBlur}
+                  isValid={touched?.endereco?.complemento && !errors?.endereco?.complemento}
+                  isInvalid={touched?.endereco?.complemento && !!errors?.endereco?.complemento}
+                 />
+                 <Form.Control.Feedback type='invalid'>{errors?.endereco?.complemento}</Form.Control.Feedback>
              </Form.Group>
                 
               
@@ -215,7 +290,11 @@ export default function page() {
                   type='text'
                   value={values?.endereco?.cidade}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.endereco?.cidade && !errors?.endereco?.cidade}
+                  isInvalid={touched?.endereco?.cidade && !!errors?.endereco?.cidade}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.endereco?.cidade}</Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group as={Col}>
@@ -225,17 +304,25 @@ export default function page() {
                   type='text'
                   value={values?.endereco?.bairro}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.endereco?.bairro && !errors?.endereco?.bairro}
+                  isInvalid={touched?.endereco?.bairro && !!errors?.endereco?.bairro}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.endereco?.bairro}</Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group as={Col}>
                 <Form.Label>UF:</Form.Label>
                 <Form.Control
-                  name='endereco.uf'
+                  name='endereco.UF'
                   type='text'
-                  value={values?.endereco?.uf}
+                  value={values?.endereco?.UF}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.endereco?.UF && !errors?.endereco?.UF}
+                  isInvalid={touched?.endereco?.UF && !!errors?.endereco?.UF}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.endereco?.UF}</Form.Control.Feedback>
                 </Form.Group>
            </Row>
 
@@ -248,21 +335,29 @@ export default function page() {
               <Form.Group as={Col}>
                 <Form.Label>Nome:</Form.Label>
                 <Form.Control
-                  name='nome'
+                  name='proprietario.nome'
                   type='text'
-                  value={values.nome}
+                  value={values?.proprietario?.nome}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.proprietario?.nome && !errors?.proprietario?.nome}
+                  isInvalid={touched?.proprietario?.nome && !!errors?.proprietario?.nome}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.proprietario?.nome}</Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group as={Col}>
                 <Form.Label>CPF:</Form.Label>
                 <Form.Control
-                  name='cpf'
+                  name='proprietario.CPF'
                   type='text'
-                  value={values.cpf}
+                  value={values.CPF}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.proprietario?.CPF && !errors?.proprietario?.CPF}
+                  isInvalid={touched?.proprietario?.CPF && !!errors?.proprietario?.CPF}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.proprietario?.CPF}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
@@ -271,21 +366,29 @@ export default function page() {
             <Form.Group as={Col} md={6}>
                 <Form.Label>Telefone:</Form.Label>
                 <Form.Control
-                  name='telefone'
+                  name='proprietario.telefone'
                   type='text'
                   value={values.telefone}
                   onChange={handleChange}
-                />   
+                  onBlur={handleBlur}
+                  isValid={touched?.proprietario?.telefone && !errors?.proprietario?.telefone}
+                  isInvalid={touched?.proprietario?.telefone && !!errors?.proprietario?.telefone}
+                />
+                <Form.Control.Feedback type='invalid'>{errors?.proprietario?.telefone}</Form.Control.Feedback>  
               </Form.Group>
 
               <Form.Group as={Col}>
                 <Form.Label>E-mail:</Form.Label>
                 <Form.Control
-                  name='email'
+                  name='proprietario.email'
                   type='email'
                   value={values.email}
                   onChange={handleChange}
+                  onBlur={handleBlur}
+                  isValid={touched?.proprietario?.email && !errors?.proprietario?.email}
+                  isInvalid={touched?.proprietario?.email && !!errors?.proprietario?.email}
                 />
+                <Form.Control.Feedback type='invalid'>{errors?.proprietario?.email}</Form.Control.Feedback>
               </Form.Group>     
             </Row>
 
