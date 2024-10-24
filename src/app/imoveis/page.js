@@ -6,6 +6,7 @@ import React from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { FaTrash, FaCheck } from "react-icons/fa";
 import * as Yup from "yup"
+import ReactInputMask from 'react-input-mask'
 
 export default function page() {
 
@@ -81,7 +82,7 @@ const validationSchema = Yup.object().shape({
                 <Row className='mb-2'>
                     <Form.Group as={Col}>
                         <Form.Label>Tipo: </Form.Label>
-                        <Form.Control
+                        <Form.Select
                         name='tipo'
                         type='text'
                         value={values.tipo}
@@ -89,13 +90,19 @@ const validationSchema = Yup.object().shape({
                         onBlur={handleBlur}
                         isValid={touched.tipo && !errors.tipo}
                         isInvalid={touched.tipo && !!errors.tipo}
-                        ></Form.Control>
+                        >
+                          <option value=''>Selecione</option>
+                          <option value="Casa">Casa</option>
+                          <option value="Apartamento">Apartamento</option>
+                          <option value="Terreno">Terreno</option>
+                          <option value="Sala Comercial">Sala Comercial</option>
+                        </Form.Select>
                         <Form.Control.Feedback type='invalid'>{errors.tipo}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group as={Col}>
                         <Form.Label>Finalidade: </Form.Label>
-                        <Form.Control
+                        <Form.Select
                         name='finalidade'
                         type='text'
                         value={values.finalidade}
@@ -103,7 +110,11 @@ const validationSchema = Yup.object().shape({
                         onBlur={handleBlur}
                         isValid={touched.finalidade && !errors.finalidade}
                         isInvalid={touched.finalidade && !!errors.finalidade} 
-                        />
+                        >
+                          <option value=''>Selecione</option>
+                          <option value="Venda">Venda</option>
+                          <option value="Aluguel">Aluguel</option>
+                        </Form.Select>
                         <Form.Control.Feedback type='invalid'>{errors.finalidade}</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
@@ -223,7 +234,9 @@ const validationSchema = Yup.object().shape({
             <Row className='mb-2'>
               <Form.Group as={Col} md={3}>
                 <Form.Label>Cep:</Form.Label>
-                <Form.Control
+                <Form.Control as={ReactInputMask}
+                  mask={"72.000-000"}
+                  placeholder='72.000-000'
                   name='endereco.cep'
                   type='text'
                   value={values?.endereco?.cep}
@@ -348,7 +361,9 @@ const validationSchema = Yup.object().shape({
 
               <Form.Group as={Col}>
                 <Form.Label>CPF:</Form.Label>
-                <Form.Control
+                <Form.Control as={ReactInputMask}
+                  mask={"000.000.000-00"}
+                  placeholder='000.000.000-00'
                   name='proprietario.CPF'
                   type='text'
                   value={values.CPF}
@@ -365,7 +380,9 @@ const validationSchema = Yup.object().shape({
 
             <Form.Group as={Col} md={6}>
                 <Form.Label>Telefone:</Form.Label>
-                <Form.Control
+                <Form.Control as={ReactInputMask}
+                  mask={"(99)99999-9999"}
+                  placeholder='(99)99999-9999'
                   name='proprietario.telefone'
                   type='text'
                   value={values.telefone}
@@ -379,7 +396,9 @@ const validationSchema = Yup.object().shape({
 
               <Form.Group as={Col}>
                 <Form.Label>E-mail:</Form.Label>
-                <Form.Control
+                <Form.Control as={ReactInputMask}
+                  mask={"imobiliaria@imoveis.com"}
+                  placeholder='imobiliaria@imoveis.com'
                   name='proprietario.email'
                   type='email'
                   value={values.email}

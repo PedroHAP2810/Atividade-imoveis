@@ -11,9 +11,9 @@ export default function Pagina(props) {
     <>
     <Navbar bg="primary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
+          <Navbar.Brand href="/">Início</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/imoveis">Pagina Imoveis</Nav.Link>
+            <Nav.Link href="/imoveis">Cadastro de Imoveis</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
